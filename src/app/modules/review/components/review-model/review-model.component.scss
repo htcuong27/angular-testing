@@ -1,0 +1,10 @@
+.review-modal {
+    &__container {
+        color: black;
+    }
+    &__options {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
+}

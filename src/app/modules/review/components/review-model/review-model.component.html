@@ -1,0 +1,48 @@
+<h1 mat-dialog-title>Add Question</h1>
+<div mat-dialog-content>
+  <div>
+    <p>Input your question</p>
+    <textarea #questionEle style="width: 100%" [(ngModel)]="question"></textarea>
+    <div></div>
+  </div>
+  <div class="review-modal__options">
+    <p>Answer format</p>
+    <div>
+      <mat-checkbox [checked]="isPara" (click)="$event.stopPropagation(); isCheckbox = false; isPara = true">Paragraph answer</mat-checkbox>
+      <mat-checkbox [checked]="isCheckbox" (click)="$event.stopPropagation(); isPara = false; isCheckbox = true">Check Box list </mat-checkbox>
+    </div>
+  </div>
+  <div *ngIf="isCheckbox">
+    
+    <div>
+        <p>Answer Options</p>
+        <div style="display: flex; flex-direction: column;gap: 8px" *ngFor="let answer of answerOptions;">
+            <input style="height: 24px;" [(ngModel)]="answer.answer" />
+        </div>
+        <div style="cursor: pointer;" (click)="onAddMore()">+ Add another answer</div>
+    </div>
+    
+  </div>
+  <div style="display: flex; flex-direction: column">
+    <div>-------------------</div>
+    <mat-checkbox [(ngModel)]="isOtherOption"
+      >Allow user to specify their own answer</mat-checkbox
+    >
+    <mat-checkbox [(ngModel)]="isRequired"
+      >This field is required</mat-checkbox
+    >
+  </div>
+</div>
+<div
+  mat-dialog-actions
+  style="
+    display: flex;
+    gap: 8px;
+    flex-direction: row;
+    justify-content: flex-end;
+    align-items: center;
+  "
+>
+  <button mat-button (click)="onCancel()">Cancel</button>
+  <button mat-button (click)="onConfirm()">Ok</button>
+</div>

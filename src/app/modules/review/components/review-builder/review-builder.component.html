@@ -1,0 +1,24 @@
+<form [formGroup]="submitForm">
+    <div [formArrayName]="'reviewList'">
+        <ng-container *ngIf="submitForm.get('reviewList')?.value.length !== 0">
+            <div *ngFor="let item of submitForm.get('reviewList')?.value;">
+                <h2>{{item.question}} <span style="color: red;">{{item.isRequired ? '*' : ''}}</span></h2>
+                <ng-container *ngIf="item.answerOptions && item.answerOptions.length">
+                    <div *ngFor="let option of item.answerOptions;">
+                        <mat-checkbox [(ngModel)]="option.checked" [ngModelOptions]="{standalone: true}">{{option.answer}}</mat-checkbox>
+                        <div *ngIf="option.answer === 'Other'">
+                            <input  (keyup)="onChangeOtherValue(option, $event)" />
+                        </div>
+                    </div>
+                </ng-container>
+                <ng-container *ngIf="!item.answerOptions">
+                    <textarea [(ngModel)]="item.reply" [ngModelOptions]="{standalone: true}"></textarea>
+                </ng-container>
+            </div>
+        </ng-container>
+    </div>
+    <div>
+        <button mat-raised-button (click)="openDialog()">Add New Question</button>
+    </div>
+    <button *ngIf="submitForm.get('reviewList')?.value.length !== 0" (click)="onReviewData()">Review my answer ></button>
+</form>
