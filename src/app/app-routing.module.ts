@@ -8,7 +8,11 @@ const routes: Routes = [
     loadChildren: () =>
       import('./modules/review/review.module').then((m) => m.ReviewModule),
   },
-
+  {
+    path: '',
+    redirectTo: 'form/builder',
+    pathMatch: 'full'
+  }
 ];
 
 @NgModule({
